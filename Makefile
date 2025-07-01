@@ -6,10 +6,10 @@ BINARY_ALL = image_s_ns.elf
 MACHINE_NAME := mps2-an505
 
 CMSIS_PATH ?= ./CMSIS_5
-QEMU_PATH ?= ./qemu/build/arm-softmmu/qemu-system-arm
+QEMU_PATH ?= qemu-system-arm
 TOOLCHAIN_PATH ?= ./gcc-arm-none-eabi-8-2019-q3-update/bin
 
-CROSS_COMPILE = $(TOOLCHAIN_PATH)/arm-none-eabi-
+CROSS_COMPILE = arm-none-eabi-
 CC = $(CROSS_COMPILE)gcc
 LD = $(CROSS_COMPILE)ld
 GDB = $(CROSS_COMPILE)gdb
@@ -41,7 +41,9 @@ INCLUDE_FLAGS = \
 
 COMMON_CFLAGS = \
     -mcpu=cortex-m33 \
-    -g \
+    -g3 \
+    -ggdb \
+    -O0 \
     $(INCLUDE_FLAGS) \
     -nostartfiles -ffreestanding \
     -mthumb
