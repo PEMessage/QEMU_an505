@@ -82,3 +82,27 @@ void logPrint(const char* format, ...)
   va_end(arg);
   printString(buffer);
 }
+
+
+
+// Implement from FreeRTOS/Demo/CORTEX_MPS2_QEMU_IAR_GCC/main.c
+int _write( int iFile,
+             char * pcString,
+             int iStringLength )
+{
+    int iNextChar;
+
+    /* Avoid compiler warnings about unused parameters. */
+    ( void ) iFile;
+
+    /* Output the formatted string to the UART. */
+    for( iNextChar = 0; iNextChar < iStringLength; iNextChar++ )
+    {
+        __io_putchar(*pcString);
+
+        // stdout_putchar( *pcString ); // This function work abnormal under QEMU SVC_Handler
+        pcString++;
+    }
+
+    return iStringLength;
+}
